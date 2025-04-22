@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href=" {% static 'css/vedioplayer.css' %}">
+
+
+    <div id="search" class="pop-overlay" style="margin-top: 200px; margin-bottom:20px;">
+        <div class="popup">
+            <form action="{% url 'search' %}" method="POST" class="search-box">
+                {% csrf_token %}
+                <input type="search" placeholder="Search your Keyword" name="search" required="required" class="search-input with-icon" autofocus="">
+                <button type="submit" class="btn"><span class="fa fa-search" aria-hidden="true"></span></button>
+            </form>
+    
+        </div>
+        <a class="close" style=" margin-right: 830px;margin-top:20px;" href="{% url 'index' %}">Close </a>
+
+
+        <section class="w3l-grids" style="margin-top:50px;">
+            <div class="grids-main py-5">
+                <div class="container py-lg-3">
+                    <div class="headerhny-title">
+                        <div class="w3l-title-grids">
+                            <div class="headerhny-left"><h3 class="hny-title">Searched Movies</h3></div>
+                        </div>
+                    </div>
+                    <div class="w3l-populohny-grids">
+        
+        
+                        <!-- / STARTING popular movies grid section -->
+                        {% if search %}
+                            {% for movie in search  %}
+                                {% if movie.subscription %}
+                                <div class="item vhny-grid">
+                                    <div class="box16">
+                                        <a href="{% url 'moviesdetails' movie.id %}">
+                                            <figure>
+                                                <img class="img-fluid"  src="{{ movie.Poster.url }}" alt="">
+                                            </figure>
+                                            <span class=" video-icon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                                            <div class="box-content">
+                                                <h3 class="title">{{ movie.Title }} <small>({{movie.Rate }}) </small></h3>
+                                                <h4><span class="post">
+                                                        <span class="fa fa-clock-o">  {{ movie.duration }} </span> 
+                                                    </span>
+                                                    <span class="post text-right"><a style="color:yellow; margin-left: 50px; font-size:30px " href="{% url 'subscription' %}">&#9733;</a></span>
+                                                </h4>
+                                            </div>
+                                            
+                                        </a>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="item vhny-grid">
+                                    <div class="box16">
+                                        <a href="{% url 'moviesdetails' movie.id %}">
+                                            <figure>
+                                                <img class="img-fluid"  src="{{ movie.Poster.url }}" alt="">
+                                            </figure>
+                                            <div class="box-content">
+                                                <h3 class="title">{{ movie.Title }} <small>({{movie.Rate }}) </small></h3>
+                                                <h4><span class="post">
+                                                        <span class="fa fa-clock-o">  {{ movie.duration }} </span> 
+                                                    </span>
+                                                </h4>
+                                            </div>
+                                            <span class=" video-icon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p>Sorry, That movie does not exist.</p>
+                        {% endif %}
+                        <!-- / ENDING popular movies grid section -->
+        
+        
+                    </div>
+                
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+
+
+{% endblock %}
+    

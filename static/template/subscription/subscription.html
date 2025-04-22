@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #ffffff;
+        color: rgb(43, 43, 43);
+    }
+    .containerzz {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+        
+    }
+    .plans {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        
+    }
+    .titi{
+        margin-top: 200px;
+        margin-bottom: 40px
+    }
+    .plan {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        text-align: center;
+        border: 2px solid #303135;
+    }
+    .plan h2 {
+        font-size: 20px;
+        color: rgb(43, 43, 43);
+    }
+    .plan h1 {
+        font-size: 30px;
+        margin: 10px 0;
+        
+    }
+    .buttonzzz {
+        background: black;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 20px
+
+    }
+    
+    .pro {
+        border: 2px solid #6366F1;
+        position: relative;
+    }
+    .pro::before {
+        content: "Most Popular";
+        position: absolute;
+        top: -10px;
+        right: 10px;
+        background: #6366F1;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+    }
+    ul li {
+        text-align: left;
+        padding-left: 20px;
+    }
+    .disabled {
+        color: grey;
+    }
+
+</style>
+
+<div class="containerzz" >
+    <h1 class="titi" >Subscription Plans</h1>
+    <div class="plans basic">
+        <div class="plan">
+            <h2>Basic</h2>
+            <h1>$10/month</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="price_id" value="{{ subscription.basic }}">
+                <button class="buttonzzz">Subscribe</button>
+                <ul>
+                    <li><span style='color:green;'>&#10004;</span> Access to exclusive content</li>
+                    <li><span style='color:red;'>&#10006;</span> Pro features (Analytics, Private Chat, ...)</li>
+                    <li><span style='color:red;'>&#10006;</span> Premium Support</li>
+                </ul>
+            </form>
+        </div>
+        <div class="plan pro">
+            <h2>Pro</h2>
+            <h1>$20/month</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="price_id" value="{{ subscription.pro }}">
+                <button class="buttonzzz" style="background:#6366F1;">Subscribe</button>
+                <ul>
+                    <li><span style='color:green;'>&#10004;</span> Access to exclusive content</li>
+                    <li><span style='color:green;'>&#10004;</span> Pro features (Analytics, Private Chat, ...)</li>
+                    <li><span style='color:green;'>&#10004;</span> Premium Support</li>
+                </ul>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock %}

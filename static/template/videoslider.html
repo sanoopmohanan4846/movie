@@ -1,0 +1,19 @@
+
+<div class="slider-container">
+    <div class="slider">
+        {% for movie in movies %}
+        <div class="slide">
+        <a href="{% url 'moviesdetails' movie.id %}"><img src="{{ movie.Image.url }}" alt="{{ movie.Title }}">
+            <div class="movie-details">
+                <h1>{{ movie.Title }} <small>({{ movie.Rate }})</small></h1>
+                <p>{{ movie.Description }}</p>
+            </div>
+        </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Navigation Buttons -->
+    <button class="prev" onclick="prevSlide()">&#10094;</button>
+    <button class="next" onclick="nextSlide()">&#10095;</button>
+</div>

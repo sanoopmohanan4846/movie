@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block content %}
+
+
+<div id="search" class="pop-overlay" style="margin-top: 250px;">
+    <div class="popup">
+        <div class="browse-items">
+            <h3 class="hny-title two mt-md-5 mt-4" style=" margin-left: 720px; margin-bottom: 20px;">Browse all:</h3>
+            <ul class="search-items" style="margin-left: 470px;">
+                <li><a href="{% url 'category' genre_id=1 %}">Action</a></li>
+                <li><a href="{% url 'category' genre_id=2 %}">Drama</a></li>
+                <li><a href="{% url 'category' genre_id=4 %}">Adventure</a></li>
+                <li><a href="{% url 'category' genre_id=8 %}">Thriller</a></li>
+                <li><a href="{% url 'category' genre_id=5 %}">Commedy</a></li>
+                <li><a href="{% url 'category' genre_id=6 %}">Romantic</a></li>
+                <li><a href="{% url 'category' genre_id=7 %}">Fantasy</a></li>
+                <li><a href="{% url 'category' genre_id=3 %}">Horror</a></li>
+            </ul>
+        </div>
+    </div>
+    <a class="close" style="color: white; margin-right: 880px; margin-top: 25px;" href="{% url 'genre' %}">Close</a>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!--grids-sec1-->
+    <section class="w3l-grids" style="margin-top: 70px;">
+        <div class="grids-main py-5">
+            <div class="container py-lg-3">
+                <div class="headerhny-title">
+                    <div class="w3l-title-grids">
+                        <div class="headerhny-left"><h3 class="hny-title">{{ genre.name }}</h3></div>
+                        <a href="{% url 'collection' %}" style="text-align: right;" class="back-btn">Close</a>
+                    </div>
+                </div>
+                {% if movies %}
+                <div class="w3l-populohny-grids"style="margin-top: 0px;">
+                    <!-- / STARTING popular movies grid section -->
+                    {% for movie in movies %}
+                    <div class="item vhny-grid">
+                        <div class="box16">
+                            <a href="{% url 'moviesdetails' movie.id %}">
+                                <figure>
+                                    <img class="img-fluid"  src="{{ movie.Poster.url }}" alt="">
+                                </figure>
+                                <div class="box-content">
+                                    <h3 class="title">{{ movie.Title }} <small>({{movie.Rate }}) </small></h3>
+                                    <h4> <span class="post">
+                                            <span class="fa fa-clock-o"> </span> {{ movie.duration }}
+                                        </span>
+                                    </h4>
+                                </div>
+                                <span class=" video-icon"><i class="fa-solid fa-play"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- / ENDING popular movies grid section -->
+                </div>
+                {% else %}
+                    <h4>Sorry, No New {{ genre.name }} Movies Were Found.</h4>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!--//grids-sec1-->
+
+{% endblock %}

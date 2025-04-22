@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<style>
+    
+      
+      #gradient {
+        background: #999955;
+        background-image: linear-gradient(#DAB046 20%, #D73B25 20%, #D73B25 40%, #C71B25 40%, #C71B25 60%, #961A39 60%, #961A39 80%, #601035 80%);
+        margin: 0 auto;
+        margin-top: 100px;
+        width: 100%;
+        height: 150px;
+      }
+      
+      #gradient:after {
+        content: "";
+        position: absolute;
+        background: #E9E2D0;
+        left: 50%;
+        margin-top: -67.5px;
+        margin-left: -400px;
+        padding-left: 20px;
+        border-radius: 5px;
+        width: 800px;
+        height: 400px;
+        z-index: -1;
+      }
+      
+      #card {
+        position: absolute;
+        width: 600px;
+        height: 300px;
+        padding: 25px;
+        padding-top: 0;
+        padding-bottom: 0;
+        left: 50%;
+        top: 67.5px;
+        margin-left: -300px;
+        background: #E9E2D0;
+        box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
+        z-index: 5;
+      }
+      
+      #card img {
+        width: 200px;
+        float: left;
+        border-radius: 10px;
+        margin-top: 40px;
+        margin-right: 20px;
+        -webkit-filter: sepia(1);
+        -moz-filter: sepia(1);
+        filter: sepia(1);
+      }
+      
+      #card h2 {
+        margin-top: 35px;
+        font-family: courier;
+        color: #000000;
+        margin: 0 auto;
+        padding: 0;
+
+        font-weight: bolder;
+      }
+      
+      #card p {
+        font-family: courier;
+        color: #000000;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #card a {
+        font-size: 12px; 
+        margin-top: 150px;
+        font-weight: bold;
+        margin-right: 15px;
+        
+      }
+      
+      #card span {
+        font-family: courier;
+        font-weight: bolder;
+        font-size: 20px;
+        color: black;
+      }
+</style>
+
+
+
+<div class="contain" style="margin-top: 300px;">
+    <div id="gradient">
+        <div id="card" style="margin-top: 190px;" >
+            {% if user.is_authenticated %}
+                <img src="{% static 'images/2.jpg' %}" alt="Profile Picture" width="150">
+                <h2 style="margin-top: 70px;"><span style="font-size: 30px;">{{ user.username }}</span></h2>
+                <p>First Name:<span> {{ user.first_name }}</span></p>
+                <p>Last Name:<span> {{ user.last_name }}</span></p>
+                <p>Email: {{ user.email }}</p>
+                <a href="{% url 'watchlist_summery' %}">Watchlist</a> 
+                <a href="{% url 'my_sub' %}">My Subscription</a>
+                <a href="{% url 'logout' %}">Logout</a>
+               
+            {% else %}
+                <p>Login to view <a class="nav-link" href="{% url 'login' %}">Login</a></p>
+            {% endif %}
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
