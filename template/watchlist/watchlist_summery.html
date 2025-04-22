@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block content %}
+
+    <!--/breadcrumbs -->
+	<div class="w3l-breadcrumbs">
+		<nav id="breadcrumbs" class="breadcrumbs">
+			<div class="container page-wrapper">
+			<a href="index.html">Home</a> » <span class="breadcrumb_last" aria-current="page">Watchlist</span>
+			</div>
+		</nav>
+	</div>
+    <!--//breadcrumbs -->
+
+    <!--grids-sec1-->
+    <section class="w3l-grids">
+        <div class="grids-main py-5">
+            <div class="container py-lg-3">
+                <div class="headerhny-title">
+                    <div class="w3l-title-grids">
+                        <div class="headerhny-left">
+                            <h3 class="hny-title">Watchlist</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3l-populohny-grids">
+
+                    
+                    <!-- / STARTING popular movies grid section -->
+                    
+                    {% for movie in watchlist_movies %}
+                    <div class="item vhny-grid">
+                        <div class="box16">
+                            <a href="{% url 'moviesdetails' movie.id %}">
+                                <figure>
+                                    <img class="img-fluid"  src="{{ movie.Poster.url }}" alt="">
+                                </figure>
+                                <div class="box-content">
+                                    <h3 class="title">{{ movie.Title }} <small>({{movie.Rate }}) </small></h3>
+                                    
+                                    <h4><span class="post">
+                                            <span class="fa fa-clock-o">  {{ movie.duration }} </span> 
+                                        </span>
+                                    </h4>
+                                </div>
+                                <span class="fa fa-play video-icon" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                        <div class="button-center text-center mt-4">
+                            <button type="button" class="btn watch-button delete-movies" data-movie-id="{{ moviesdetails.id }}">
+                                <span><i class="fa fa-trash"></i></span> Delete
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                       
+                    <!-- / ENDING popular movies grid section -->
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--//grids-sec1-->
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".delete-movies").forEach(button => {
+                button.addEventListener("click", function() {
+                    let movieId = this.getAttribute("data-movie-id");
+    
+                    fetch("{% url 'watchlist_delete' %}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        },
+                        body: JSON.stringify({ moviesdetails_id: movieId })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            this.closest(".button-center").remove(); // Remove from UI
+                        } else {
+                            console.error("Delete failed:", data.error);
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                });
+            });
+        });
+    </script>
+    
+
+{% endblock  %}

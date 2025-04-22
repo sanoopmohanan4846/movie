@@ -1,0 +1,78 @@
+{% block content %}
+
+<!--grids-sec1-->
+<section class="w3l-grids">
+    <div class="grids-main py-5">
+        <div class="container py-lg-3">
+            <div class="headerhny-title">
+                <div class="w3l-title-grids">
+                    <div class="headerhny-left">
+                        <h3 class="hny-title">Popular Movies</h3>
+                    </div>
+                    <div class="headerhny-right text-lg-right">
+                        <h4><a class="show-title" href="{% url 'popular_movies' %}">Show all</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="w3l-populohny-grids">
+
+
+                <!-- / STARTING popular movies grid section -->
+                {% if movies %}
+
+                    {% for movie in popular_movies %}
+                        {% if movie.subscription %}
+                        <div class="item vhny-grid">
+                            <div class="box16">
+                                <a href="{% url 'moviesdetails' movie.id %}">
+                                    <figure>
+                                        <img class="img-fluid"  src="{{ movie.Poster.url }}" alt="">
+                                    </figure>
+                                    <span class=" video-icon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                                    <div class="box-content">
+                                        <h3 class="title">{{ movie.Title }} <small>({{movie.Rate }}) </small></h3>
+                                        <h4><span class="post">
+                                                <span class="fa fa-clock-o">  {{ movie.duration }} </span> 
+                                            </span>
+                                            <span class="post text-right"><a style="color:yellow; margin-left: 50px; font-size:30px " href="{% url 'subscription' %}">&#9733;</a></span>
+                                        </h4>
+                                    </div>
+                                    
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="item vhny-grid">
+                            <div class="box16">
+                                <a href="{% url 'moviesdetails' movie.id %}">
+                                    <figure>
+                                        <img class="img-fluid"  src="{{ movie.Poster.url }}" alt="">
+                                    </figure>
+                                    <div class="box-content">
+                                        <h3 class="title">{{ movie.Title }} <small>({{movie.Rate }}) </small></h3>
+                                        <h4><span class="post">
+                                                <span class="fa fa-clock-o">  {{ movie.duration }} </span> 
+                                            </span>
+                                        </h4>
+                                    </div>
+                                    <span class=" video-icon" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No newly released movies found.</p>
+                {% endif %}
+                <!-- / ENDING popular movies grid section -->
+
+
+            </div>
+        
+        </div>
+    </div>
+</section>
+
+<!--//grids-sec1-->
+
+{% endblock %}

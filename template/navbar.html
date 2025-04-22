@@ -1,0 +1,94 @@
+<!-- header -->
+<header id="site-header" class="w3l-header fixed-top">
+    <!--/nav-->
+    <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+        <div class="container">
+            <h1><a class="navbar-brand" href="index.html"><span class="fa fa-play icon-log"
+                        aria-hidden="true"></span>
+                    ProShowz </a></h1>
+            <!-- if logo is image enable this   
+                    <a class="navbar-brand" href="#index.html">
+                        <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                    </a> -->
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <span class="fa icon-expand fa-bars"></span>
+                <span class="fa icon-close fa-times"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto" >
+                    <li class="nav-item active">
+                        <a class="nav-link" style="font-size: 16px;" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 16px;" href="{% url 'about' %}">About</a>
+                    </li>
+                        
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 16px;" href="{% url 'genre' %}">Genre</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 16px;" href="{% url 'contact' %}">Contact</a>
+                    </li>
+
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 16px;" href="{% url 'profile' %}">Profile</a>
+                    </li>
+                    
+                </ul>
+
+                <div class="search-right">
+                        <form class="d-flex">
+                            <a href="{% url 'watchlist_summery' %}"  class="btn search-hny mr-lg-3 mt-lg-0 mt-4" >Watchlist <span class="badge bg-dark text-white ms-1 rounded-pill" id="watchlist_quantity">{{ watchlist|length }}</span></a> 
+                        </form>
+                </div>
+
+                <!--/search-right-->
+               
+                <div class="search-right">
+                    <a href="{% url 'search' %}" class="btn search-hny mr-lg-3 mt-lg-0 mt-4" title="search"> Search <span class="fa fa-search ml-3" aria-hidden="true"></span></a>
+                </div>
+
+
+            </div>
+            <!-- toggle switch for light and dark theme -->
+            <!-- <div class="mobile-position">
+                <nav class="navigation">
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox">
+                            <div class="mode-container">
+                                <i class="gg-sun"></i>
+                                <i class="gg-moon"></i>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto" >
+                            
+                        </ul>
+                    </div>
+
+
+                </nav>
+            </div> -->
+            <!-- //toggle switch for light and dark theme -->
+            
+        </div>
+    </nav>
+    <!--//nav-->
+</header>
+<!-- //header -->

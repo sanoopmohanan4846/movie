@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href=" {% static 'css/vedioplayer.css' %}">
+
+
+<div class="video-container">
+    <!-- Header with Title & Close Button -->
+    <div class="header-container">
+        <h2>{{ moviesdetails.Title }}</h2>
+        <a href="{% url 'moviesdetails' moviesdetails.id %}" class="back-btn">Close</a>
+    </div>
+
+    <!-- Video Player -->
+    {% if moviesdetails.File %}
+        
+        <video name='demo' controls >
+            <source src="{{ moviesdetails.File.url }}" type="video/mp4"></source>
+        </video>
+
+        
+    {% else %}
+        <p style="color: red; font-weight: bold;">Video file is not available.</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}

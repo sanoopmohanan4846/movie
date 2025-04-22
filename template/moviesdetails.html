@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<link rel="stylesheet" href=" {% static 'css/vedioslider.css' %}">
+
+
+
+<div class="w3l-breadcrumbs">
+  <nav id="breadcrumbs" class="breadcrumbs">
+    <div class="container page-wrapper">
+      <a href="{% url 'index' %}">Home</a> » <span class="breadcrumb_last" aria-current="page">{{ moviesdetails.Title }}</span>
+    </div>
+  </nav>
+</div>
+
+
+<div id="content_hero" class="center-content hero-ontop">
+    <img src="{{ moviesdetails.Image.url }}" alt="Scroll down" class="scroll" style="  margin:20px; height: 95%; width: 98%;">
+  
+    <div class="container">
+        <div  class="row blurb scrollme animateme" data-when="exit" data-from="0" data-to="1" data-opacity="0" data-translatey="100">
+            <div class="col-md-10" style="font-weight: bolder;  padding:15px; border-radius: 10px;       background: rgba(0, 0, 0, 0.);">
+                <h1  style="font-weight: bolder;">{{ moviesdetails.Title }} <small style="font-size: 15px;">({{ moviesdetails.Rate }})</small> </h1>
+                <p  style="font-weight: bolder;">{{ moviesdetails.Description }} </p>
+                <span class="title">{{ moviesdetails.genrez }}</span>
+                <div class="buttons">
+                  <button class="btnz btnz-default"><a style="color: #ffffff;" href="{% url 'moviesplayer' moviesdetails.id %}">Play</a></button>
+                  <button type="button" value="{{  moviesdetails.id }}" id="add-watchlist" class="btnz btnz-default">Add to Watchlist</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- footer-66 -->
+{% include 'footer.html' %}
+<!--//footer-66 -->
+
+
+
+<script>
+  // Check if button pressed
+  $(document).on('click', '#add-watchlist', function(e){
+      e.preventDefault();
+      $.ajax({
+          type: 'POST',
+          url: '{% url "watchlist_add" %}',
+          data: {
+      moviesdetails_id: $('#add-watchlist').val(),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+          },
+  
+          success: function(json){
+            document.getElementById("watchlist_quantity").textContent = json.qty
+            location.reload(); 
+              
+          },
+  
+          error: function(xhr, errmsg, err){
+  
+          }
+  
+  
+      });
+  
+  
+  
+  })
+  
+  
+  document.getElementById("play-button").addEventListener("click", function() {
+    var videoContainer = document.getElementById("video-container");
+    var videoPlayer = document.getElementById("movie-player");
+
+    videoContainer.style.display = "block"; // Show the video player
+    videoPlayer.play(); // Auto-play the movie
+});
+  
+  </script>
+
+{% endblock %}
